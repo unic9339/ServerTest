@@ -132,8 +132,7 @@ public class EchoTask implements Runnable{
 		    	} */
 		    	//System.out.println("gwesn matched: " + gwesn +"\n");
 		    	System.out.println("gwesn2 define: " + gwesn2 +"\n");
-	            sql = "select esn, unit_id, modbus_id, ip_addr, mtcp_port from smlogger where gw_esn =?";
-	            pstmt = conn.prepareStatement(sql);
+		    	sql = "select esn, modbus_id, name, ip_addr, mtcp_port from smlogger where gw_esn =?";	            pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, gwesn);
 	            rs = pstmt.executeQuery();
 	            dbQuery(socket, conn, pstmt, rs, line, sql, keystart, keyend);
