@@ -154,8 +154,6 @@ public class KeywordSql{
 				returnArray = null;
 			}
 					
-						
-			
 		}catch (SQLException ex) {
 			ex.printStackTrace();
 		}finally {
