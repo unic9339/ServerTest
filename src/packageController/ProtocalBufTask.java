@@ -98,6 +98,8 @@ public class ProtocalBufTask {
 		}
 	}
 	
+	
+	// search for ChannelInboundHandler 
 	public class ServerMessageHandler extends ChannelInboundHandlerAdapter{
 		
 	}
