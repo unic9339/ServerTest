@@ -101,7 +101,55 @@ public class ProtocalBufTask {
 	
 	// search for ChannelInboundHandler 
 	public class ServerMessageHandler extends ChannelInboundHandlerAdapter{
+	
+		@Override
+		public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+			// TODO Auto-generated method stub
+			 ByteBuf buf = (ByteBuf) msg;
+		    	/*
+		    	List<Object> out = new ArrayList<>();
+		        MessageDecoder msgdecoder = new MessageDecoder();
+		        msgdecoder.decode(ctx, buf, out);
+		        */
+		        short magicNum = buf.readShort();
+		        System.out.println("buf>readShort(): " + magicNum);
+			    if (magicNum == 0x1234) {
+		            System.out.println( "received packet is about gw");   	    	
+			    }
+		        System.out.println("buf>readByte(): " + buf.readByte());
+		        int type = buf.readByte();
+		        System.out.println("msg_type: " + type);
+		        short length = buf.readShort();     
+		        System.out.println("body's length: " + length);
+		        //System.out.println("buf>readByte(): "+ buf.readByte());
+		        //use byte array to read the data, same as file IO
+		        //byte[] reg = new byte[buf.readableBytes()];
+		    	byte[] reg = new byte[length];
+		        //System.out.println("readableBytes(): " + buf.readableBytes());
+		        buf.readBytes(reg);
+		        //byte to string
+		        String body = new String(reg, "UTF-8");
+		        System.out.println( "server received body: " + body);
+		              
+		}
 		
+		@Override
+		public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+			// TODO Auto-generated method stub
+			super.channelReadComplete(ctx);
+		}
+		
+		@Override
+		public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+			cause.printStackTrace();
+	        ctx.close();
+		}
+		
+		@Override
+		public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+			// TODO Auto-generated method stub
+			super.channelRegistered(ctx);
+		}
 	}
 
 }
