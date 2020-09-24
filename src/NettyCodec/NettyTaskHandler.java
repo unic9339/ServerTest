@@ -8,7 +8,9 @@ public class NettyTaskHandler extends ChannelInboundHandlerAdapter{
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		ByteBuf buf = (ByteBuf)msg;
+		NettyProtocol netPro = new NettyProtocol();
+//		ByteBuf buf = (ByteBuf)msg;
+		ByteBuf buf = netPro.NettyProtocol(msg);
 		
 		short magicNum = buf.readShort();
 		System.out.println("buf>readShort(): " + magicNum);

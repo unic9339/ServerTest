@@ -29,7 +29,8 @@ public class ClientNetty {
 				@Override
 				protected void initChannel(Channel sc) throws Exception {
 					ChannelPipeline cp = sc.pipeline();
-					cp.addLast(new NettyClientHandler());
+//					cp.addLast(new NettyClientHandler());
+					cp.addLast(new NettyProtoHandler());
 				}
 			});
 			

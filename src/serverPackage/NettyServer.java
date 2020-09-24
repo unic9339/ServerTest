@@ -1,5 +1,6 @@
 package serverPackage;
 
+import NettyCodec.NettyChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -27,7 +28,8 @@ public class NettyServer {
 				protected void initChannel(Channel ch) throws Exception {
 					ChannelPipeline p = ch.pipeline();
 					// add Handler in addlast();
-					p.addLast(new NettyServerHandler());
+//					p.addLast(new NettyServerHandler());
+					p.addLast(new NettyChannelInitializer());
 				}
 			});
 			
