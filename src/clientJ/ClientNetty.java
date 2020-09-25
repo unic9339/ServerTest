@@ -1,5 +1,7 @@
 package clientJ;
 
+import NettyCodec.NettyEncodeDecode;
+import NettyCodec.NettyEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -30,7 +32,11 @@ public class ClientNetty {
 				protected void initChannel(Channel sc) throws Exception {
 					ChannelPipeline cp = sc.pipeline();
 //					cp.addLast(new NettyClientHandler());
+					
+//					cp.addLast("Decode", new NettyEncodeDecode.NettyDecoder());
 					cp.addLast(new NettyProtoHandler());
+					cp.addLast("Encode", new NettyEncodeDecode.NettyEncoder());
+
 				}
 			});
 			
