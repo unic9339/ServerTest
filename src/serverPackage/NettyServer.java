@@ -22,17 +22,17 @@ public class NettyServer {
 			ServerBootstrap sb = new ServerBootstrap();
 			sb.group(bossGroup, workerGroup)
 			.channel(NioServerSocketChannel.class)
-			.childHandler(new NettyChannelInitializer());
-//			.childHandler(new ChannelInitializer<>() {
-//
-//				@Override
-//				protected void initChannel(Channel ch) throws Exception {
-//					ChannelPipeline p = ch.pipeline();
-//					// add Handler in addlast();
-////					p.addLast(new NettyServerHandler());
-//					p.addLast(new NettyChannelInitializer());
-//				}
-//			});
+//			.childHandler(new NettyChannelInitializer());
+			.childHandler(new ChannelInitializer<>() {
+
+				@Override
+				protected void initChannel(Channel ch) throws Exception {
+					ChannelPipeline p = ch.pipeline();
+					// add Handler in addlast();
+//					p.addLast(new NettyServerHandler());
+					p.addLast(new NettyChannelInitializer());
+				}
+			});
 			
 			ChannelFuture f = sb.bind(PORT_NUM).sync();
 			f.channel().closeFuture().sync();

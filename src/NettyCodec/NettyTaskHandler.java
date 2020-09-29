@@ -8,6 +8,7 @@ public class NettyTaskHandler extends ChannelInboundHandlerAdapter{
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		System.out.println("connecting");
 		NettyProtocol netPro = new NettyProtocol();
 //		ByteBuf buf = (ByteBuf)msg;
 		ByteBuf buf = netPro.NettyProtocol(msg);
@@ -30,7 +31,14 @@ public class NettyTaskHandler extends ChannelInboundHandlerAdapter{
 	}
 	
 	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+		new NettyEncodeDecode.NettyDecoder();
+		ctx.flush();
+	}
+	
+	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		new NettyEncodeDecode.NettyEncoder();
 		ctx.flush();
 	}
 	

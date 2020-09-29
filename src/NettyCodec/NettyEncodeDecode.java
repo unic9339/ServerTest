@@ -18,19 +18,19 @@ public class NettyEncodeDecode {
 			System.out.println("Encode: " + msgType.getBody());
 			System.out.println("Contxt: " +ctx.toString());
 			System.out.println("ByteBuf: "+ out.toString());
-			 if (msgType.getMsgType() != MsgTypeEnum.EMPTY) {
-			    	
-			        out.writeShort(Constants.MAGIC_NUMBER);   // write magic number
-			        out.writeByte(1);	// write version	 
-			        out.writeByte(msgType.getMsgType().getType());	//  write current message type
-			        
-			        if (null == msgType.getBody()) {
-			            out.writeInt(0);  //if body is empty, 0 is wrote, showing that length of body is zero
-			        } else {
-			            out.writeInt(msgType.getBody().length());
-			            out.writeCharSequence(msgType.getBody(), Charset.defaultCharset());
-			        }
-			    }
+			
+			if (msgType.getMsgType() != MsgTypeEnum.EMPTY) {
+		        out.writeShort(Constants.MAGIC_NUMBER);   // write magic number
+		        out.writeByte(1);	// write version	 
+		        out.writeByte(msgType.getMsgType().getType());	//  write current message type
+		        
+		        if (null == msgType.getBody()) {
+		            out.writeInt(0);  //if body is empty, 0 is wrote, showing that length of body is zero
+		        } else {
+		            out.writeInt(msgType.getBody().length());
+		            out.writeCharSequence(msgType.getBody(), Charset.defaultCharset());
+		        }
+		    }
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class NettyEncodeDecode {
 			else {
 				MsgType message = new MsgType();
 				message.setMagicNum(byteBuf.readShort());
-				message.setVersion(byteBuf.readByte()); // read version 
+				message.setVersion(byteBuf.readByte()); // read version
 			    message.setMsgType(MsgTypeEnum.get(byteBuf.readByte()));	// read current message type
 			    message.setLength(byteBuf.readShort()); //read length of the body
 		    	byte[] reg = new byte[message.getLength()];
