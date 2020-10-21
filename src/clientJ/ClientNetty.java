@@ -33,9 +33,9 @@ public class ClientNetty {
 					ChannelPipeline cp = sc.pipeline();
 //					cp.addLast(new NettyClientHandler());
 					
-					cp.addLast("Decode", new NettyEncodeDecode.NettyDecoder());
+//					cp.addLast("Decode", new NettyEncodeDecode.NettyDecoder());
 					cp.addLast(new NettyProtoHandler());
-					cp.addLast("Encode", new NettyEncodeDecode.NettyEncoder());
+//					cp.addLast("Encode", new NettyEncodeDecode.NettyEncoder());
 
 				}
 			});

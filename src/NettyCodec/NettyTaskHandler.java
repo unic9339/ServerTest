@@ -1,8 +1,12 @@
 package NettyCodec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 public class NettyTaskHandler extends ChannelInboundHandlerAdapter{
 
@@ -28,17 +32,12 @@ public class NettyTaskHandler extends ChannelInboundHandlerAdapter{
 
         String body = new String(reg, "UTF-8");
         System.out.println( "server received body: " + body);
-	}
-	
-	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		new NettyEncodeDecode.NettyDecoder();
-		ctx.flush();
+        ctx.write(msg);
 	}
 	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		new NettyEncodeDecode.NettyEncoder();
+//		new NettyEncodeDecode.NettyEncoder();
 		ctx.flush();
 	}
 	
